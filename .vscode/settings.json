@@ -1,0 +1,84 @@
+{
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma",
+    "editor.formatOnSave": true
+  },
+  
+    "todohighlight.isEnable": true,
+    "todohighlight.isCaseSensitive": true,
+    "todohighlight.keywords": [
+        "DEBUG:",
+        "REVIEW:",
+        {
+            "text": "NOTE:",
+            "color": "white",
+            "backgroundColor": "darkgreen",
+            "overviewRulerColor": "grey",
+            "border": "1px solid black ",
+            "borderRadius": "3px"
+        },
+        {
+            "text": "HACK:",
+            "color": "red",
+            "backgroundColor": "#dddddd",
+            "overviewRulerColor": "white",
+            "isWholeLine": false,
+            "border": "1px solid white",
+            "borderRadius": "3px"
+            
+        },
+        {
+            "text": "FIXME:",
+            "color": "#fff",
+            "backgroundColor": "red",
+            "overviewRulerColor": "blue",
+            "isWholeLine": false,
+            "border": "1px solid black ",
+            "borderRadius": "3px"
+        },
+        {
+            "text": "TODO:",
+            "color": "black",
+            "border": "1px solid peach",
+            "borderRadius": "3px", //NOTE: using borderRadius along with `border` or you will see nothing change
+            "backgroundColor": "gold",
+            "overviewRulerColor": "cyan",
+            //other styling properties goes here ... 
+        }
+    ],
+    // "todohighlight.keywordsPattern": "TODO:|FIXME:", 
+    // "todohighlight.defaultStyle": {
+    //     "color": "white",
+    //     "backgroundColor": "darkgreen",
+    //     "overviewRulerColor": "#ffab00",
+    //     "cursor": "pointer",
+    //     "border": "1px solid #eee",
+    //     "borderRadius": "2px",
+    //     "isWholeLine": false,
+    // },
+    "todohighlight.include": [
+        "**/*.js",
+        "**/*.jsx",
+        "**/*.ts",
+        "**/*.tsx",
+        "**/*.html",
+        "**/*.php",
+        "**/*.css",
+        "**/*.scss"
+    ],
+    "todohighlight.exclude": [
+        "**/node_modules/**",
+        "**/bower_components/**",
+        "**/dist/**",
+        "**/build/**",
+        "**/.vscode/**",
+        "**/.github/**",
+        "**/_output/**",
+        "**/*.min.*",
+        "**/*.map",
+        "**/.next/**"
+    ],
+    "todohighlight.maxFilesForSearch": 5120,
+    "todohighlight.toggleURI": false
+
+}
