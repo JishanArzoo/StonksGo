@@ -1,8 +1,7 @@
 import "server-only";
 
 const baseUrl =
-  process.env.ALPACA_BASE_URL ||
-  "https://broker-api.sandbox.alpaca.markets/v1/";
+  process.env.ALPACA_BASE_URL || "https://broker-api.sandbox.alpaca.markets/v1";
 const basicAuthKey = process.env.ALPACA_BASIC_AUTH_KEY;
 
 if (!baseUrl) {

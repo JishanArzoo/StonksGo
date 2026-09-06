@@ -3,7 +3,7 @@ import { alpacaRequest } from "./client";
 export type CreateAlapacaOrderInput = {
   accountId: string;
   symbol: string;
-  qty: string;
+  qty: string | undefined;
   side: "buy" | "sell";
   type?: "market" | "limit" | "stop" | "stop_limit";
   time_in_force?: string;
@@ -24,7 +24,7 @@ export type AlpacaOrder = {
 
 export async function createAlpacaOrder(input: CreateAlapacaOrderInput) {
   return alpacaRequest<AlpacaOrder>(
-    `trading/accounts/${input.accountId}/orders`,
+    `/trading/accounts/${input.accountId}/orders`,
     {
       method: "POST",
 
@@ -32,8 +32,9 @@ export async function createAlpacaOrder(input: CreateAlapacaOrderInput) {
         symbol: input.symbol,
         qty: input.qty,
         side: input.side,
-        type: input.type,
-        time_in_force: input.time_in_force,
+        type: "market",
+        time_in_force: "gtc",
+        commission_type: "notional",
       }),
     },
   );
