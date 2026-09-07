@@ -1,8 +1,10 @@
 import { alpacaRequest } from "./client";
 
 export type CreateAchRelationshipInput = {
-  name: string;
-  accountNo: string | undefined;
+  bank_account_type: string;
+  account_owner_name: string;
+  bank_account_number: string | undefined;
+  bank_routing_number: string;
 };
 
 export type CreateTransferInput = {
@@ -20,16 +22,17 @@ export async function createAchRelationship<T>(
   });
 }
 
-export async function listAchRelationships(accountId: string) {
-  return alpacaRequest(`/accounts/${accountId}/ach_relationships`);
-}
+//TODO: More routes
+// export async function listAchRelationships(accountId: string) {
+//   return alpacaRequest(`/accounts/${accountId}/ach_relationships`);
+// }
 
-export async function createTransfer(
-  accountId: string,
-  input: CreateTransferInput,
-) {
-  return alpacaRequest(`/accounts/${accountId}/transfers`, {
-    method: "POST",
-    body: JSON.stringify(input),
-  });
-}
+// export async function createTransfer(
+//   accountId: string,
+//   input: CreateTransferInput,
+// ) {
+//   return alpacaRequest(`/accounts/${accountId}/transfers`, {
+//     method: "POST",
+//     body: JSON.stringify(input),
+//   });
+// }

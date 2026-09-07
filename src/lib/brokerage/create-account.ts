@@ -33,7 +33,7 @@ export async function createBrokerageAccount(
   // Prevent duplicate brokerage account
   const existing = await prisma.brokerageAccount.findUnique({
     where: {
-      id: userId,
+      userId,
     },
   });
 
@@ -57,23 +57,25 @@ export async function createBrokerageAccount(
     },
   });
 
-  if (!alpacaAccount) {
+  if (!alpacaAccount?.id) {
     throw new Error("Something went wrong while creating brokerage account");
   }
 
   const achRelationship = await createAchRelationship<AchRelationshipResponse>(
     alpacaAccount?.id,
     {
-      accountNo: alpacaAccount.account_number,
-      name: `${input.firstName} ${input.lastName}`,
+      bank_account_type: "SAVINGS",
+      account_owner_name: `${input.firstName} ${input.lastName}`,
+      bank_account_number: alpacaAccount.account_number,
+      bank_routing_number: "000000000",
     },
   );
 
-  if (!achRelationship) {
+  if (!achRelationship?.id) {
     throw new Error("Problem creating an ACH relationship");
   }
 
-  const brokerageAccount = prisma.brokerageAccount.create({
+  const brokerageAccount = await prisma.brokerageAccount.create({
     data: {
       userId,
       alpacaAccountId: alpacaAccount.id,
@@ -82,4 +84,6 @@ export async function createBrokerageAccount(
       status: "ACTIVE",
     },
   });
+
+  return brokerageAccount;
 }

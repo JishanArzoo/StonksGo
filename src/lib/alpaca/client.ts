@@ -1,7 +1,6 @@
 import "server-only";
 
-const baseUrl =
-  process.env.ALPACA_BASE_URL || "https://broker-api.sandbox.alpaca.markets/v1";
+const baseUrl = process.env.ALPACA_BASE_URL;
 const basicAuthKey = process.env.ALPACA_BASIC_AUTH_KEY;
 
 if (!baseUrl) {
@@ -28,16 +27,12 @@ export async function alpacaRequest<T>(
   options: RequestInit = {},
 ): Promise<T> {
   const response = await fetch(`${baseUrl}${path}`, {
-    ...options,
-
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Basic ${basicAuthKey}`,
-      ...options.headers,
+      accept: "application/json",
+      "content-type": "application/json",
+      authorization: `Basic ${basicAuthKey}`,
     },
-
-    cache: "no-cache",
+    ...options,
   });
 
   const text = await response.text();
@@ -49,7 +44,7 @@ export async function alpacaRequest<T>(
   } catch {
     data = text;
   }
-
+  console.log(response);
   if (!response.ok) {
     throw new AlpacaApiError(
       "Alpaca API request failed",

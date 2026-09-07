@@ -54,7 +54,7 @@ export type AlpacaAccount = {
 export async function createAlpacaAccount(
   input: CreateAlpacaAccountInput,
 ): Promise<AlpacaAccount> {
-  return alpacaRequest<AlpacaAccount>("accounts", {
+  return alpacaRequest<AlpacaAccount>("/accounts", {
     method: "POST",
     body: JSON.stringify({
       contact: {
@@ -143,8 +143,7 @@ export async function createAlpacaAccount(
           mime_type: "image/jpeg",
         },
       ],
-      //NOTE: Provision for multiple account types as choosen by user
-      // account_type: input.accountType,
+
       account_type: "trading",
     }),
   });
