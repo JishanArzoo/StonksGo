@@ -1,31 +1,32 @@
 import { redirect } from "next/navigation";
 
 import { getSession } from "@/lib/auth/session";
-import { prisma } from "@/lib/db";
-import { BrokerageOnboardingForm } from "@/components/brokerage/BrokerageOnboardingForm";
+import { OnboardingWizard } from "@/components/onboarding/OnboardingWizard";
 
-export default async function BrokerageOnboardingPage() {
+export default async function OnboardingPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ step?: number }>;
+}) {
+  // const { step } = await searchParams;
   const session = await getSession();
+  let steps;
 
-  // User must be authenticated.
   if (!session?.user?.id) {
-    redirect("/login");
-  }
-
-  // Don't let a user register twice.
-  const existingBrokerageAccount = await prisma.brokerageAccount.findUnique({
-    where: {
-      userId: session.user.id,
-    },
-  });
-
-  if (existingBrokerageAccount) {
-    redirect("/dashboard");
+    console.log("session does not exists");
+  } else {
+    if (steps == undefined) {
+      steps = 2;
+    }
   }
 
   return (
-    <main className="min-h-screen px-6 py-12">
-      <BrokerageOnboardingForm />
+    <main className="min-h-screen bg-background px-4 py-8 sm:px-6 lg:px-8">
+      <OnboardingWizard
+        stepNo={steps}
+        initialUsername={session?.user.name ?? ""}
+        initialEmail={session?.user.email ?? ""}
+      />
     </main>
   );
 }

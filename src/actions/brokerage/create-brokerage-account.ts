@@ -42,6 +42,7 @@ export async function createBrokerageAccountAction(
     return {
       success: false,
       error: "Please correct the highlighted fields.",
+      fieldErrors: parsed.error.flatten().fieldErrors,
     };
   }
 
